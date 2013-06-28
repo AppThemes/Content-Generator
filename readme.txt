@@ -2,7 +2,7 @@
 Contributors: appthemes
 Tags: appthemes, random, content, generator
 Requires at least: 3.4
-Tested up to: 3.5.1
+Tested up to: 3.5.2
 Stable tag: 1.0
 
 Allows you to generate content on your site randomly.
@@ -12,6 +12,7 @@ Allows you to generate content on your site randomly.
 Allows you to generate content on your site randomly.
 
 = Supports =
+* ClassiPress
 * Quality Control
 * Vantage
 

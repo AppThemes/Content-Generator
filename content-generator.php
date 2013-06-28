@@ -38,6 +38,12 @@ function app_content_generator_init() {
 
 		$app_content_generator = new VA_Content_Generator();	
 
+	} elseif ( defined( 'APP_POST_TYPE' ) && APP_POST_TYPE == 'ad_listing' ) {
+		if ( ! class_exists( 'CP_Content_Generator' ) )
+			require_once( 'classes/cp-generator.php' );
+
+		$app_content_generator = new CP_Content_Generator();	
+
 	} else {
 		add_action( 'admin_notices', 'app_content_generator_display_warning' );
 	}
