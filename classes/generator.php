@@ -215,7 +215,7 @@ class APP_Content_Generator {
 
 			if ( ! empty( $_POST['images'] ) ) {
 				$image = APP_Content_Generator_Data::get_image();
-				$image_id = ( $image ) ? $this->import_attachment( $post_id, $image ) : false;
+				$image_id = ( $image && $this->add_or_not() ) ? $this->import_attachment( $post_id, $image ) : false;
 				if ( $image_id )
 					$this->extra_image_data( $image_id, $post_id );
 			}
@@ -236,9 +236,6 @@ class APP_Content_Generator {
 	 * @return bool|int
 	 */
 	public function import_attachment( $post_id, $file ) {
-		if ( ! $this->add_or_not() )
-			return false;
-
 		$file_info = wp_check_filetype( $file );
 
 		$rand_name = uniqid( rand( 10, 1000 ), false );

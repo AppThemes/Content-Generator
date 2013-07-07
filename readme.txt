@@ -13,6 +13,7 @@ Allows you to generate content on your site randomly.
 
 = Supports =
 * ClassiPress
+* Clipper
 * Quality Control
 * Vantage
 

@@ -2,8 +2,8 @@
 /*
 Plugin Name: Random Content Generator
 Plugin URI: http://appthemes.com/
-Description: Creates random content.
-Author: appthemes
+Description: Creates random content on your site.
+Author: AppThemes
 Version: 1.0
 Author URI: http://appthemes.com/
 */
@@ -43,6 +43,12 @@ function app_content_generator_init() {
 			require_once( 'classes/cp-generator.php' );
 
 		$app_content_generator = new CP_Content_Generator();	
+
+	} elseif ( defined( 'APP_POST_TYPE' ) && APP_POST_TYPE == 'coupon' ) {
+		if ( ! class_exists( 'CLPR_Content_Generator' ) )
+			require_once( 'classes/clpr-generator.php' );
+
+		$app_content_generator = new CLPR_Content_Generator();	
 
 	} else {
 		add_action( 'admin_notices', 'app_content_generator_display_warning' );
