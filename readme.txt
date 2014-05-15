@@ -15,6 +15,7 @@ Allows you to generate content on your site randomly.
 * ClassiPress
 * Clipper
 * Quality Control
+* Rave
 * Taskerr
 * Vantage
 

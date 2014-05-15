@@ -39,6 +39,14 @@ function app_content_generator_init() {
 
 		$app_content_generator = new QC_Content_Generator();
 
+	// Rave
+	} elseif ( defined( 'RAVE_VERSION' ) ) {
+		if ( ! class_exists( 'RAVE_Content_Generator' ) ) {
+			require_once( 'classes/rave-generator.php' );
+		}
+
+		$app_content_generator = new RAVE_Content_Generator();	
+
 	// Taskerr
 	} elseif ( defined( 'TR_VERSION' ) ) {
 		if ( ! class_exists( 'TR_Content_Generator' ) ) {
