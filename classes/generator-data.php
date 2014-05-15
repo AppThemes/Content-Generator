@@ -1,10 +1,17 @@
 <?php
-
+/**
+ * Helper class for generating random content
+ */
 class APP_Content_Generator_Data {
 
 	private static $images = array();
 
 
+	/**
+	 * Returns random title
+	 *
+	 * @return string
+	 */
 	public static function get_title() {
 		$adj = self::data_words_adj();
 		$things = self::data_words_things();
@@ -13,28 +20,52 @@ class APP_Content_Generator_Data {
 			rand( 0, count( $adj ) - 1 ),
 			rand( 0, count( $things ) - 1 ),
 		);
+
 		return $adj[ $rand[0] ] . ' ' . $adj[ $rand[1] ] . ' ' . $things[ $rand[2] ];
 	}
 
 
+	/**
+	 * Returns random description
+	 *
+	 * @return string
+	 */
 	public static function get_description() {
 		$descriptions = self::data_descriptions();
+
 		return $descriptions[ rand( 0, count( $descriptions ) - 1 ) ];
 	}
 
 
+	/**
+	 * Returns random image
+	 *
+	 * @return string
+	 */
 	public static function get_image() {
 		$images = self::data_images();
+
 		return $images[ rand( 0, count( $images ) - 1 ) ]; 
 	}
 
 
+	/**
+	 * Returns random address
+	 *
+	 * @return array
+	 */
 	public static function get_address() {
 		$addresses = self::data_addresses();
+
 		return $addresses[ rand( 0, count( $addresses ) - 1 ) ]; 
 	}
 
 
+	/**
+	 * Returns an array of descriptions
+	 *
+	 * @return array
+	 */
 	public static function data_descriptions() {
 
 		$data = array(
@@ -71,6 +102,11 @@ class APP_Content_Generator_Data {
 	}
 
 
+	/**
+	 * Returns an array of noun words
+	 *
+	 * @return array
+	 */
 	public static function data_words_things() {
 
 		$data = array(
@@ -470,6 +506,11 @@ class APP_Content_Generator_Data {
 	}
 
 
+	/**
+	 * Returns an array of adjective words 
+	 *
+	 * @return array
+	 */
 	public static function data_words_adj() {
 
 		$data = array(
@@ -938,6 +979,11 @@ class APP_Content_Generator_Data {
 	}
 
 
+	/**
+	 * Returns an array of images
+	 *
+	 * @return array
+	 */
 	public static function data_images() {
 		if ( empty( self::$images ) ) {
 			self::$images = glob( dirname( dirname( __FILE__ ) ) . '/images/*' );
@@ -947,6 +993,11 @@ class APP_Content_Generator_Data {
 	}
 
 
+	/**
+	 * Returns an array of addresses
+	 *
+	 * @return array
+	 */
 	public static function data_addresses() {
 
 		$data = array(

@@ -5,6 +5,7 @@ class CP_Content_Generator extends APP_Content_Generator {
 	 * Class Constructor
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function __construct() {
@@ -27,6 +28,7 @@ class CP_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_post_data( $post_id ) {
@@ -40,13 +42,15 @@ class CP_Content_Generator extends APP_Content_Generator {
 	 * Adds post meta (details, featured, geolocation)
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function add_post_meta( $post_id ) {
 		$address = $this->get_random_address();
 
-		if ( ! empty( $_POST['slider_featured'] ) && $this->add_or_not() )
+		if ( ! empty( $_POST['slider_featured'] ) && $this->add_or_not() ) {
 			stick_post( $post_id );
+		}
 
 		// set some default meta values
 		$ad_duration = rand( 10, 100 );
@@ -65,8 +69,9 @@ class CP_Content_Generator extends APP_Content_Generator {
 		$advals['cp_zipcode'] = $address['zipcode'];
 		$advals['cp_sys_total_ad_cost'] = rand( 1, 50 );
 	
-		foreach ( $advals as $meta_key => $meta_value )
+		foreach ( $advals as $meta_key => $meta_value ) {
 			update_post_meta( $post_id, $meta_key, $meta_value, true );
+		}
 
 		// set coordinates of new ad
 		$category = wp_get_post_terms( $post_id, APP_TAX_CAT );
@@ -80,6 +85,7 @@ class CP_Content_Generator extends APP_Content_Generator {
 	 * Adds fields to mark listing as featured
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function extra_form_fields() {
@@ -96,6 +102,7 @@ class CP_Content_Generator extends APP_Content_Generator {
 	 * Returns random address
 	 *
 	 * @since 1.0
+	 *
 	 * @return array
 	 */
 	public function get_random_address() {
@@ -122,6 +129,7 @@ class CP_Content_Generator extends APP_Content_Generator {
 	 * Returns random country
 	 *
 	 * @since 1.0
+	 *
 	 * @return string The country name
 	 */
 	public function get_random_country() {

@@ -5,6 +5,7 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 * Class Constructor
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function __construct() {
@@ -29,13 +30,15 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_post_data( $post_id ) {
 
 		$coupon_type = wp_get_object_terms( $post_id, APP_TAX_TYPE );
-		if ( is_wp_error( $coupon_type ) || empty( $coupon_type ) )
+		if ( is_wp_error( $coupon_type ) || empty( $coupon_type ) ) {
 			wp_set_object_terms( $post_id, 'promotion', APP_TAX_TYPE, false );
+		}
 
 		$this->add_post_meta( $post_id );
 	}
@@ -45,6 +48,7 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 * Adds post meta (details, featured)
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function add_post_meta( $post_id ) {
@@ -76,8 +80,9 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 			'clpr_coupon_aff_url' => $this->get_random_affiliate_url(),
 		);
 
-		foreach ( $meta_fields as $meta_key => $meta_value )
+		foreach ( $meta_fields as $meta_key => $meta_value ) {
 			update_post_meta( $post_id, $meta_key, $meta_value, true );
+		}
 
 	}
 
@@ -86,6 +91,7 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 * Adds fields to mark listing as featured
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function extra_form_fields() {
@@ -102,6 +108,7 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 * Returns random coupon code
 	 *
 	 * @since 1.0
+	 *
 	 * @return string
 	 */
 	public function get_random_coupon_code() {
@@ -114,6 +121,7 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 * Returns random affiliate url
 	 *
 	 * @since 1.0
+	 *
 	 * @return string
 	 */
 	public function get_random_affiliate_url() {
@@ -155,16 +163,19 @@ class CLPR_Content_Generator extends APP_Content_Generator {
 	 * Adds printable coupon
 	 *
 	 * @since 1.0
+	 *
 	 * @return int|bool
 	 */
 	public function add_printable_coupon( $post_id ) {
 		$image = APP_Content_Generator_Data::get_image();
-		if ( ! $image )
+		if ( ! $image ) {
 			return false;
+		}
 
 		$image_id = $this->import_attachment( $post_id, $image );
-		if ( ! $image_id )
+		if ( ! $image_id ) {
 			return false;
+		}
 
 		wp_set_object_terms( $image_id, 'printable-coupon', APP_TAX_IMAGE, false );
 

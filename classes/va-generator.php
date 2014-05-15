@@ -5,6 +5,7 @@ class VA_Content_Generator extends APP_Content_Generator {
 	 * Class Constructor
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function __construct() {
@@ -27,6 +28,7 @@ class VA_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_post_data( $post_id ) {
@@ -42,6 +44,7 @@ class VA_Content_Generator extends APP_Content_Generator {
 	 * @since 1.0
 	 * @param int $image_id
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_image_data( $image_id, $post_id ) {
@@ -53,6 +56,7 @@ class VA_Content_Generator extends APP_Content_Generator {
 	 * Adds post meta (contact, featured, geolocation)
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function add_post_meta( $post_id ) {
@@ -89,6 +93,7 @@ class VA_Content_Generator extends APP_Content_Generator {
 	 * Adds fields to mark listing as featured
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function extra_form_fields() {

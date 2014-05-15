@@ -5,6 +5,7 @@ class QC_Content_Generator extends APP_Content_Generator {
 	 * Class Constructor
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function __construct() {
@@ -30,14 +31,17 @@ class QC_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_post_data( $post_id ) {
-		if ( $this->add_or_not() )
+		if ( $this->add_or_not() ) {
 			$this->assign_user( $post_id );
+		}
 
-		if ( $this->add_or_not() )
+		if ( $this->add_or_not() ) {
 			$this->create_changeset( $post_id );
+		}
 	}
 
 
@@ -46,6 +50,7 @@ class QC_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function assign_user( $post_id ) {
@@ -61,6 +66,7 @@ class QC_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return int
 	 */
 	public function create_changeset( $post_id ) {
@@ -82,6 +88,7 @@ class QC_Content_Generator extends APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return string
 	 */
 	public function commit_message( $post_id ) {
@@ -95,11 +102,13 @@ class QC_Content_Generator extends APP_Content_Generator {
 
 		$message = APP_Content_Generator_Data::get_title() . ' [#' . $post_id;
 		foreach ( $relations as $key => $taxonomy ) {
-			if ( empty( $_POST['tax_input'][ $taxonomy ] ) )
+			if ( empty( $_POST['tax_input'][ $taxonomy ] ) ) {
 				continue;
+			}
 
-			if ( ! $this->add_or_not() )
+			if ( ! $this->add_or_not() ) {
 				continue;
+			}
 
 			$terms = $_POST['tax_input'][ $taxonomy ];
 
@@ -114,8 +123,9 @@ class QC_Content_Generator extends APP_Content_Generator {
 				$term = get_term_by( 'id', $term_id, $taxonomy );
 			}
 
-			if ( $term )
+			if ( $term ) {
 				$message .= ' ' . $key . ':' . $term->slug;
+			}
 		}
 		$message .= ']';
 

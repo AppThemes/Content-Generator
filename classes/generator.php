@@ -13,6 +13,7 @@ class APP_Content_Generator {
 	 * Class Constructor
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function __construct( $config = array() ) {
@@ -39,6 +40,7 @@ class APP_Content_Generator {
 	 * Adds plugin admin menu
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	function add_admin_menu() {
@@ -50,6 +52,7 @@ class APP_Content_Generator {
 	 * Loads plugin localization
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	function load_textdomain() {
@@ -61,11 +64,13 @@ class APP_Content_Generator {
 	 * Generates settings page for plugin
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	function display_page() {
-		if ( ! current_user_can( 'manage_options' ) )
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( __( 'You do not have sufficient permissions to access this page.', $this->textdomain ) );
+		}
 
 		if ( ! empty( $_POST['generate_random_content'] ) ) {
 			$this->generate_content();
@@ -103,8 +108,9 @@ class APP_Content_Generator {
 						</tr>
 						<?php
 							foreach ( $this->taxonomies as $taxonomy ) {
-								if ( ! taxonomy_exists( $taxonomy ) )
+								if ( ! taxonomy_exists( $taxonomy ) ) {
 									continue;
+								}
 
 								$tax_object = get_taxonomy( $taxonomy );
 								if ( substr( $taxonomy, -4 ) != '_tag' ) {
@@ -136,6 +142,7 @@ class APP_Content_Generator {
 	 * Creates authors dropdown
 	 *
 	 * @since 1.0
+	 *
 	 * @return string
 	 */
 	public function get_authors_dropdown() {
@@ -156,6 +163,7 @@ class APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param string $taxonomy
+	 *
 	 * @return string
 	 */
 	public function get_tax_checklist( $taxonomy ) {
@@ -164,7 +172,7 @@ class APP_Content_Generator {
 		ob_start();
 		wp_terms_checklist( 0, array(
 			'taxonomy' => $taxonomy,
-			'checked_ontop' => false
+			'checked_ontop' => false,
 		) );
 		$checklist = ob_get_clean();
 		$checklist = str_replace( 'post_category[]', 'tax_input[' . $taxonomy . '][]', $checklist );
@@ -178,6 +186,7 @@ class APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param string $taxonomy
+	 *
 	 * @return string
 	 */
 	public function get_tax_commalist( $taxonomy ) {
@@ -191,6 +200,7 @@ class APP_Content_Generator {
 	 * Returns randomly true or false
 	 *
 	 * @since 1.0
+	 *
 	 * @return bool
 	 */
 	public function add_or_not() {
@@ -203,6 +213,7 @@ class APP_Content_Generator {
 	 * Returns randomly true or false
 	 *
 	 * @since 1.0
+	 *
 	 * @return bool
 	 */
 	public function generate_content() {
@@ -210,14 +221,16 @@ class APP_Content_Generator {
 
 		for ( $i = 1; $i <= $number; $i++ ) {
 			$post_id = $this->create_post();
-			if ( ! $post_id )
+			if ( ! $post_id ) {
 				continue;
+			}
 
 			if ( ! empty( $_POST['images'] ) ) {
 				$image = APP_Content_Generator_Data::get_image();
 				$image_id = ( $image && $this->add_or_not() ) ? $this->import_attachment( $post_id, $image ) : false;
-				if ( $image_id )
+				if ( $image_id ) {
 					$this->extra_image_data( $image_id, $post_id );
+				}
 			}
 
 			$this->assign_taxonomies( $post_id );
@@ -233,6 +246,7 @@ class APP_Content_Generator {
 	 * @since 1.0
 	 * @param int $post_id
 	 * @param string $file
+	 *
 	 * @return bool|int
 	 */
 	public function import_attachment( $post_id, $file ) {
@@ -244,11 +258,13 @@ class APP_Content_Generator {
 		$upload_dir = wp_upload_dir();
 		$new_path = $upload_dir['path'] . '/' . $file_name;
 
-		if ( file_exists( $new_path ) )
+		if ( file_exists( $new_path ) ) {
 			return false;
+		}
 
-		if ( ! copy( $file, $new_path ) )
+		if ( ! copy( $file, $new_path ) ) {
 			return false;
+		}
 
 		$post = array(
 			'post_title' => $rand_name,
@@ -268,6 +284,7 @@ class APP_Content_Generator {
 	 * Creates post
 	 *
 	 * @since 1.0
+	 *
 	 * @return int|bool
 	 */
 	public function create_post() {
@@ -294,15 +311,18 @@ class APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function assign_taxonomies( $post_id ) {
-		if ( empty( $_POST['tax_input'] ) || ! is_array( $_POST['tax_input'] ) )
+		if ( empty( $_POST['tax_input'] ) || ! is_array( $_POST['tax_input'] ) ) {
 			return;
+		}
 
 		foreach ( $_POST['tax_input'] as $taxonomy => $terms ) {
-			if ( ! taxonomy_exists( $taxonomy ) )
+			if ( ! taxonomy_exists( $taxonomy ) ) {
 				continue;
+			}
 
 			if ( ! is_array( $terms ) ) {
 				$terms = explode( ',', $terms );
@@ -328,6 +348,7 @@ class APP_Content_Generator {
 	 *
 	 * @since 1.0
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_post_data( $post_id ) {
@@ -341,6 +362,7 @@ class APP_Content_Generator {
 	 * @since 1.0
 	 * @param int $image_id
 	 * @param int $post_id
+	 *
 	 * @return void
 	 */
 	public function extra_image_data( $image_id, $post_id ) {
@@ -352,6 +374,7 @@ class APP_Content_Generator {
 	 * Allows to add new form fields
 	 *
 	 * @since 1.0
+	 *
 	 * @return void
 	 */
 	public function extra_form_fields() {
