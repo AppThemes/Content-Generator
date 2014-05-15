@@ -14,6 +14,7 @@ Allows you to generate content on your site randomly.
 = Supports =
 * ClassiPress
 * Clipper
+* HireBee
 * Quality Control
 * Rave
 * Taskerr

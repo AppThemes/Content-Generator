@@ -39,6 +39,14 @@ function app_content_generator_init() {
 
 		$app_content_generator = new QC_Content_Generator();
 
+	// HireBee
+	} elseif ( defined( 'HRB_VERSION' ) ) {
+		if ( ! class_exists( 'HRB_Content_Generator' ) ) {
+			require_once( 'classes/hrb-generator.php' );
+		}
+
+		$app_content_generator = new HRB_Content_Generator();	
+
 	// Rave
 	} elseif ( defined( 'RAVE_VERSION' ) ) {
 		if ( ! class_exists( 'RAVE_Content_Generator' ) ) {
