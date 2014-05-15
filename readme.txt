@@ -1,8 +1,8 @@
 === AppThemes Random Content Generator ===
 Contributors: appthemes
 Tags: appthemes, random, content, generator
-Requires at least: 3.4
-Tested up to: 3.5.2
+Requires at least: 3.5
+Tested up to: 3.9.1
 Stable tag: 1.0
 
 Allows you to generate content on your site randomly.
@@ -15,6 +15,7 @@ Allows you to generate content on your site randomly.
 * ClassiPress
 * Clipper
 * Quality Control
+* Taskerr
 * Vantage
 
 
@@ -36,6 +37,6 @@ Allows you to generate content on your site randomly.
 
 = Plugin doesn't work for me, what to do? =
 
-Report it with details on <a href="http://forums.appthemes.com/">support forum</a>.
+Report it with details on [support forum](http://forums.appthemes.com/).
 
 

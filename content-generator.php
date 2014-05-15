@@ -39,6 +39,14 @@ function app_content_generator_init() {
 
 		$app_content_generator = new QC_Content_Generator();
 
+	// Taskerr
+	} elseif ( defined( 'TR_VERSION' ) ) {
+		if ( ! class_exists( 'TR_Content_Generator' ) ) {
+			require_once( 'classes/tr-generator.php' );
+		}
+
+		$app_content_generator = new TR_Content_Generator();	
+
 	// Vantage
 	} elseif ( defined( 'VA_VERSION' ) ) {
 		if ( ! class_exists( 'VA_Content_Generator' ) ) {
