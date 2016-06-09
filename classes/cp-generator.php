@@ -74,9 +74,7 @@ class CP_Content_Generator extends APP_Content_Generator {
 		}
 
 		// set coordinates of new ad
-		$category = wp_get_post_terms( $post_id, APP_TAX_CAT );
-		$category_name = ( empty( $category ) ) ? '' : $category[0]->name;
-		cp_update_geocode( $post_id, $category_name, $address['lat'], $address['lng'] );
+		cp_update_geocode( $post_id, false, $address['lat'], $address['lng'] );
 
 	}
 
