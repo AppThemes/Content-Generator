@@ -45,7 +45,7 @@ function app_content_generator_init() {
 			require_once( 'classes/hrb-generator.php' );
 		}
 
-		$app_content_generator = new HRB_Content_Generator();	
+		$app_content_generator = new HRB_Content_Generator();
 
 	// Rave
 	} elseif ( defined( 'RAVE_VERSION' ) ) {
@@ -53,7 +53,7 @@ function app_content_generator_init() {
 			require_once( 'classes/rave-generator.php' );
 		}
 
-		$app_content_generator = new RAVE_Content_Generator();	
+		$app_content_generator = new RAVE_Content_Generator();
 
 	// Taskerr
 	} elseif ( defined( 'TR_VERSION' ) ) {
@@ -61,15 +61,22 @@ function app_content_generator_init() {
 			require_once( 'classes/tr-generator.php' );
 		}
 
-		$app_content_generator = new TR_Content_Generator();	
+		$app_content_generator = new TR_Content_Generator();
 
 	// Vantage
 	} elseif ( defined( 'VA_VERSION' ) ) {
+
 		if ( ! class_exists( 'VA_Content_Generator' ) ) {
 			require_once( 'classes/va-generator.php' );
 		}
 
-		$app_content_generator = new VA_Content_Generator();	
+		if ( version_compare( VA_VERSION, '4.0.0-dev-0', '<' ) ) {
+			$va_gen = 'VA_Content_Generator';
+		} else {
+			$va_gen = 'VA_Content_Generator_4';
+		}
+
+		$app_content_generator = new $va_gen();
 
 	// ClassiPress
 	} elseif ( defined( 'APP_POST_TYPE' ) && APP_POST_TYPE == 'ad_listing' ) {
@@ -77,7 +84,7 @@ function app_content_generator_init() {
 			require_once( 'classes/cp-generator.php' );
 		}
 
-		$app_content_generator = new CP_Content_Generator();	
+		$app_content_generator = new CP_Content_Generator();
 
 	// Clipper
 	} elseif ( defined( 'APP_POST_TYPE' ) && APP_POST_TYPE == 'coupon' ) {
@@ -85,7 +92,7 @@ function app_content_generator_init() {
 			require_once( 'classes/clpr-generator.php' );
 		}
 
-		$app_content_generator = new CLPR_Content_Generator();	
+		$app_content_generator = new CLPR_Content_Generator();
 
 	} else {
 		add_action( 'admin_notices', 'app_content_generator_display_warning' );
