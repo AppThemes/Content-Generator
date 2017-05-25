@@ -149,7 +149,7 @@ class VA_Content_Generator_4 extends VA_Content_Generator {
 
 		foreach ( $postmeta as $field ) {
 			if ( 'address' == $field ) {
-				update_post_meta( $post_id, 'geo_raw_address', $address['address'] );
+				update_post_meta( $post_id, 'address', $address['address'] );
 				update_post_meta( $post_id, 'geo_formatted_address', $address['address'] );
 				update_post_meta( $post_id, 'geo_lat', $address['lat'] );
 				update_post_meta( $post_id, 'geo_lng', $address['lng'] );
