@@ -177,3 +177,65 @@ class VA_Content_Generator_4 extends VA_Content_Generator {
 		}
 	}
 }
+
+class VA_Content_Generator_4_2 extends VA_Content_Generator {
+	/**
+	 * Adds post meta (contact, featured, geolocation)
+	 *
+	 * @since 1.0
+	 *
+	 * @return void
+	 */
+	public function add_post_meta( $post_id ) {
+		$address = APP_Content_Generator_Data::get_address();
+
+		$postmeta = array(
+			'phone',
+			'address',
+			'website',
+			'twitter',
+			'facebook',
+			'google-plus',
+			'instagram',
+			'youtube',
+			'geo_street_number',
+			'geo_street',
+			'geo_city',
+			'geo_state_short',
+			'geo_state_long',
+			'geo_postal_code',
+			'geo_country_short',
+			'geo_country_long',
+			'listing_claimable',
+			'va_id',
+		);
+
+		foreach ( $postmeta as $field ) {
+			if ( 'address' == $field ) {
+				update_post_meta( $post_id, $field, $address['address'] );
+			} elseif ( 'phone' == $field ) {
+				update_post_meta( $post_id, $field, $address['phone'] );
+			} elseif ( 'listing_claimable' == $field ) {
+				update_post_meta( $post_id, $field, rand( 0, 1 ) );
+			} elseif ( 'va_id' == $field ) {
+				update_post_meta( $post_id, $field, uniqid( rand( 10, 1000 ), false ) );
+			} else {
+				update_post_meta( $post_id, $field, '' );
+			}
+		}
+
+		appthemes_set_coordinates( $post_id, $address['lat'], $address['lng'] );
+
+		if ( ! empty( $_POST['home_featured'] ) && $this->add_or_not() ) {
+			update_post_meta( $post_id, '_listing-featured-home', '1' );
+			update_post_meta( $post_id, '_listing-featured-home_duration', rand( 10, 100 ) );
+			update_post_meta( $post_id, '_listing-featured-home_start_date', date( 'Y-m-d H:i:s', strtotime( '-' . rand( 1, 10 ) . ' days' ) ) );
+		}
+
+		if ( ! empty( $_POST['cat_featured'] ) && $this->add_or_not() ) {
+			update_post_meta( $post_id, '_listing-featured-cat', '1' );
+			update_post_meta( $post_id, '_listing-featured-cat_duration', rand( 10, 100 ) );
+			update_post_meta( $post_id, '_listing-featured-cat_start_date', date( 'Y-m-d H:i:s', strtotime( '-' . rand( 1, 10 ) . ' days' ) ) );
+		}
+	}
+}

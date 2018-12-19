@@ -72,8 +72,10 @@ function app_content_generator_init() {
 
 		if ( version_compare( VA_VERSION, '4.0.0-dev-0', '<' ) ) {
 			$va_gen = 'VA_Content_Generator';
-		} else {
+		} elseif ( version_compare( VA_VERSION, '4.2.0', '<' ) ) {
 			$va_gen = 'VA_Content_Generator_4';
+		} else {
+			$va_gen = 'VA_Content_Generator_4_2';
 		}
 
 		$app_content_generator = new $va_gen();
